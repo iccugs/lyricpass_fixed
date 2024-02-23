@@ -137,6 +137,7 @@ def build_urls(artist):
     query_url = SITE + "/artist.php?name=" + artist
     song_ids = []
     regex = re.compile(r'href="/lyric/(.*?)/')
+    req = urllib.request.Request(query_url, headers={'User-Agent': 'Mozilla/5.0'})
 
     with urllib.request.urlopen(query_url) as response:
         html = response.read().decode()
@@ -184,6 +185,7 @@ def scrape_lyrics(url_list):
     for url in url_list:
         print("Checking song {}/{}...       \r".format(current, total), end="")
 
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         with urllib.request.urlopen(url) as response:
             html = response.read().decode()
 
